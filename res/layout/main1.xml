@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置号码（自动回复）" />
+	<EditText 
+	    android:id="@+id/EditTextAutoReplyNum"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="短信包含以下内容自动回复" />
+
+	<EditText 
+	    android:id="@+id/EditTextContainAutoReply"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="短信包含以下内容则不回复" />
+
+	<EditText 
+	    android:id="@+id/EditTextContainAutoNotReply"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置回复内容" />
+
+	<EditText 
+	    android:id="@+id/EditTextAutoReplyText"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+	<Button
+	    android:id="@+id/ButtonSet"
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:text="设置" 
+	    android:layout_gravity="center_horizontal"/>
+
+	<Button
+	    android:id="@+id/ButtonClose"
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:text="关闭回复" 
+	    android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
