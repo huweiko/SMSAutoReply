@@ -7,79 +7,46 @@ import org.androidannotations.annotations.ViewById;
 
 import com.service.SMS_DAEMON.BackService;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import com.client.SMS_DAEMON.R;
 @EActivity(R.layout.main1)
-public class MainFace extends Activity {
+public class MainFace extends BaseActivity {
 	public Intent BackgroundServiceIntent;
 	@ViewById
 	EditText EditTextAutoReplyNum,EditTextContainAutoReply,EditTextContainAutoNotReply,EditTextAutoReplyText;
 	
 	@Click(R.id.ButtonSet)
 	void OnClickButtonSet(View v){
+		if(BackgroundServiceIntent == null){
+			BackgroundServiceIntent = new Intent(MainFace.this, BackService.class);
+			String message = EditTextAutoReplyText.getText().toString();			
+			BackgroundServiceIntent.putExtra("content", message);
+			startService(BackgroundServiceIntent);
 		
+		}
 	}
 	@Click(R.id.ButtonClose)
 	void OnClickButtonClose(View v){
-		
+		if(BackgroundServiceIntent != null){
+			stopService(BackgroundServiceIntent);
+			BackgroundServiceIntent = null;
+			
+//			Toast.makeText(MainFace.this, "the sms auto reply function has stopped!", Toast.LENGTH_LONG).show();
+		}
 	}
     /** Called when the activity is first created. */
     @AfterViews
     void Init(){
-    	FindAndModify();
-    }
-    private void FindAndModify(){
-    	Button btnSet = (Button)findViewById(R.id.set);
-    	btnSet.setOnClickListener(btnSet_listener);
-    	Button btnUnSet = (Button)findViewById(R.id.unset);
-    	btnUnSet.setOnClickListener(btnUnSet_listener);
+//    	FindAndModify();
     }
     
-    private Button.OnClickListener btnSet_listener = new Button.OnClickListener(){
-
-		@Override
-		public void onClick(View v) {
-
-			// TODO Auto-generated method stub
-			if(BackgroundServiceIntent == null){
-				BackgroundServiceIntent = new Intent(MainFace.this, BackService.class);
-				EditText editText = (EditText)findViewById(R.id.editText_reply);
-				String message = editText.getText().toString();			
-				BackgroundServiceIntent.putExtra("content", message);
-				startService(BackgroundServiceIntent);
-			
-			}
-			
-//			Toast.makeText(MainFace.this, "the sms auto reply function has started!", Toast.LENGTH_LONG).show();
-		}
-    	
-    };
-    
-    private Button.OnClickListener btnUnSet_listener = new Button.OnClickListener(){
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			if(BackgroundServiceIntent != null){
-				stopService(BackgroundServiceIntent);
-				BackgroundServiceIntent = null;
-				
-//				Toast.makeText(MainFace.this, "the sms auto reply function has stopped!", Toast.LENGTH_LONG).show();
-			}
-
-		}
-    	
-    }; 
     private long getThreadId() {
 
 		long threadId = 0;
