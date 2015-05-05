@@ -49,7 +49,7 @@ public class MainFace extends BaseActivity {
 			BackgroundServiceIntent.putExtra("ContainAutoNotReply", ContainAutoNotReply);
 			BackgroundServiceIntent.putExtra("AutoReplyText", AutoReplyText);
 			startService(BackgroundServiceIntent);
-		
+			Toast.makeText(MainFace.this, "短信发送服务开始", Toast.LENGTH_LONG).show();
 		}
 	}
 	@Click(R.id.ButtonClose)
@@ -58,7 +58,7 @@ public class MainFace extends BaseActivity {
 			stopService(BackgroundServiceIntent);
 			BackgroundServiceIntent = null;
 			
-//			Toast.makeText(MainFace.this, "the sms auto reply function has stopped!", Toast.LENGTH_LONG).show();
+			Toast.makeText(MainFace.this, "短信发送服务停止", Toast.LENGTH_LONG).show();
 		}
 	}
     /** Called when the activity is first created. */

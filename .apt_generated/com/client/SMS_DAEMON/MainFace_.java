@@ -80,25 +80,10 @@ public final class MainFace_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        EditTextAutoReplyNum = ((EditText) hasViews.findViewById(id.EditTextAutoReplyNum));
+        EditTextAutoReplyText = ((EditText) hasViews.findViewById(id.EditTextAutoReplyText));
         EditTextContainAutoNotReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoNotReply));
         EditTextContainAutoReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoReply));
-        EditTextAutoReplyText = ((EditText) hasViews.findViewById(id.EditTextAutoReplyText));
-        EditTextAutoReplyNum = ((EditText) hasViews.findViewById(id.EditTextAutoReplyNum));
-        {
-            View view = hasViews.findViewById(id.ButtonSet);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        MainFace_.this.OnClickButtonSet(view);
-                    }
-
-                }
-                );
-            }
-        }
         {
             View view = hasViews.findViewById(id.ButtonClose);
             if (view!= null) {
@@ -108,6 +93,21 @@ public final class MainFace_
                     @Override
                     public void onClick(View view) {
                         MainFace_.this.OnClickButtonClose(view);
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ButtonSet);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MainFace_.this.OnClickButtonSet(view);
                     }
 
                 }
