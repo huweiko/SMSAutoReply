@@ -18,6 +18,7 @@ public class smsReceiver extends BroadcastReceiver{
 		// TODO Auto-generated method stub   
 		//GetSmsNum(intent);
 		StringBuilder number = new StringBuilder();
+		StringBuilder SmsMessageText = new StringBuilder();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
 			Object[] myOBJpdus = (Object[]) bundle.get("pdus");
@@ -25,16 +26,35 @@ public class smsReceiver extends BroadcastReceiver{
             for (int i = 0; i < myOBJpdus.length; i++) {
                     message[i] = SmsMessage.createFromPdu((byte[]) myOBJpdus[i]);
             }
-            for (SmsMessage currentMessage : message) {
-            	number.append(currentMessage.getDisplayOriginatingAddress());
+            if(myOBJpdus.length > 0){
+            	number.append(message[0].getDisplayOriginatingAddress());
             }
-            sms_number=number.toString();
+            for (SmsMessage currentMessage : message) {
+            	SmsMessageText.append(currentMessage.getDisplayMessageBody());
+            }
+            String SmsMessageContent = SmsMessageText.toString();
+            String l_number = number.toString();
+            //如果以该数字开头的号码则回复
+            if(l_number.indexOf(getSms_number()) != -1){
+	            //如果包括此内容则不回复
+	            if(SmsMessageContent.indexOf(getSms_ContainAutoNotReply()) == -1){
+	            	//如果包括此内容则回复
+	            	if(SmsMessageContent.indexOf(getSms_ContainAutoReply()) != -1){
+	            		
+                		SmsManager smsManager = SmsManager.getDefault();
+                		//回复设定的内容
+                		smsManager.sendTextMessage(l_number, null, getSms_reply_content(), null, null);
+	            	}
+	
+	            }
+	        }
+
 		}
-		long id = getThreadId(context);
+/*		long id = getThreadId(context);
 
 		Uri mUri=Uri.parse("content://sms/conversations/" + id);
 
-		context.getContentResolver().delete(mUri, null, null);
+		context.getContentResolver().delete(mUri, null, null);*/
 		//Toast.makeText(context, sms_number+sms_reply_content, Toast.LENGTH_LONG).show();
 		//this.abortBroadcast();
 //		SmsManager smsManager = SmsManager.getDefault();    		
@@ -113,10 +133,11 @@ public class smsReceiver extends BroadcastReceiver{
 	}
 	private String sms_reply_content;
 	private String sms_number;
-	
+	private String sms_ContainAutoReply;
+	private String sms_ContainAutoNotReply;
 	public void GetSmsContent(String str)
 	{
-		sms_reply_content = str;
+		setSms_reply_content(str);
 	}
 	
 	public void GetSmsNum(Intent intent)
@@ -132,7 +153,31 @@ public class smsReceiver extends BroadcastReceiver{
             for (SmsMessage currentMessage : message) {
             	number.append(currentMessage.getDisplayOriginatingAddress());
             }
-            sms_number=number.toString();
+            setSms_number(number.toString());
 		}
+	}
+	public String getSms_reply_content() {
+		return sms_reply_content;
+	}
+	public void setSms_reply_content(String sms_reply_content) {
+		this.sms_reply_content = sms_reply_content;
+	}
+	public String getSms_number() {
+		return sms_number;
+	}
+	public void setSms_number(String sms_number) {
+		this.sms_number = sms_number;
+	}
+	public String getSms_ContainAutoReply() {
+		return sms_ContainAutoReply;
+	}
+	public void setSms_ContainAutoReply(String sms_ContainAutoReply) {
+		this.sms_ContainAutoReply = sms_ContainAutoReply;
+	}
+	public String getSms_ContainAutoNotReply() {
+		return sms_ContainAutoNotReply;
+	}
+	public void setSms_ContainAutoNotReply(String sms_ContainAutoNotReply) {
+		this.sms_ContainAutoNotReply = sms_ContainAutoNotReply;
 	}
 };

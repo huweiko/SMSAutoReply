@@ -82,8 +82,8 @@ public final class MainFace_
     public void onViewChanged(HasViews hasViews) {
         EditTextContainAutoNotReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoNotReply));
         EditTextContainAutoReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoReply));
-        EditTextAutoReplyNum = ((EditText) hasViews.findViewById(id.EditTextAutoReplyNum));
         EditTextAutoReplyText = ((EditText) hasViews.findViewById(id.EditTextAutoReplyText));
+        EditTextAutoReplyNum = ((EditText) hasViews.findViewById(id.EditTextAutoReplyNum));
         {
             View view = hasViews.findViewById(id.ButtonSet);
             if (view!= null) {

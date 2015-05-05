@@ -10,24 +10,44 @@ import com.service.SMS_DAEMON.BackService;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.client.SMS_DAEMON.Constant.Preference;
 import com.client.SMS_DAEMON.R;
 @EActivity(R.layout.main1)
 public class MainFace extends BaseActivity {
 	public Intent BackgroundServiceIntent;
+	public SharedPreferences preferences;
 	@ViewById
 	EditText EditTextAutoReplyNum,EditTextContainAutoReply,EditTextContainAutoNotReply,EditTextAutoReplyText;
 	
 	@Click(R.id.ButtonSet)
 	void OnClickButtonSet(View v){
 		if(BackgroundServiceIntent == null){
+			
+			String AutoReplyNum = EditTextAutoReplyNum.getText().toString();			
+			String TextContainAutoReply = EditTextContainAutoReply.getText().toString();			
+			String ContainAutoNotReply = EditTextContainAutoNotReply.getText().toString();			
+			String AutoReplyText = EditTextAutoReplyText.getText().toString();
+			if(AutoReplyNum.equals("") || TextContainAutoReply.equals("") || ContainAutoNotReply.equals("") || AutoReplyText.equals("")){
+				Toast.makeText(MainFace.this, "输入框不能为空！", Toast.LENGTH_LONG).show();
+				return;
+			}
+			preferences.edit().putString(Constant.C_AutoReplyNum, AutoReplyNum).commit();
+			preferences.edit().putString(Constant.C_AutoReplyText, AutoReplyText).commit();
+			preferences.edit().putString(Constant.C_ContainAutoNotReply, ContainAutoNotReply).commit();
+			preferences.edit().putString(Constant.C_TextContainAutoReply, TextContainAutoReply).commit();
 			BackgroundServiceIntent = new Intent(MainFace.this, BackService.class);
-			String message = EditTextAutoReplyText.getText().toString();			
-			BackgroundServiceIntent.putExtra("content", message);
+			BackgroundServiceIntent.putExtra("AutoReplyNum", AutoReplyNum);
+			BackgroundServiceIntent.putExtra("TextContainAutoReply", TextContainAutoReply);
+			BackgroundServiceIntent.putExtra("ContainAutoNotReply", ContainAutoNotReply);
+			BackgroundServiceIntent.putExtra("AutoReplyText", AutoReplyText);
 			startService(BackgroundServiceIntent);
 		
 		}
@@ -45,6 +65,13 @@ public class MainFace extends BaseActivity {
     @AfterViews
     void Init(){
 //    	FindAndModify();
+		if (null == preferences) {
+			preferences = Preference.getSharedPreferences(this);
+		} 
+    	EditTextAutoReplyNum.setText(preferences.getString(Constant.C_AutoReplyNum, ""));
+    	EditTextAutoReplyText.setText(preferences.getString(Constant.C_AutoReplyText, ""));
+    	EditTextContainAutoNotReply.setText(preferences.getString(Constant.C_ContainAutoNotReply, ""));
+    	EditTextContainAutoReply.setText(preferences.getString(Constant.C_TextContainAutoReply, ""));
     }
     
     private long getThreadId() {

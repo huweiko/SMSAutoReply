@@ -32,17 +32,24 @@ public class BackService extends Service {
 	@Override
 	public void onStart(Intent intent, int startId) {
 		// TODO Auto-generated method stub
-		String value = intent.getStringExtra("content");
-		start(value);
+
+		start(intent);
 		super.onStart(intent, startId);
 	}
 	
-	private void start(String str)
+	private void start(Intent intent)
     {
     	IntentFilter intentFilter = new IntentFilter();
     	intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
+		String AutoReplyNum = intent.getStringExtra("AutoReplyNum");
+		String TextContainAutoReply = intent.getStringExtra("TextContainAutoReply");
+		String ContainAutoNotReply = intent.getStringExtra("ContainAutoNotReply");
+		String AutoReplyText = intent.getStringExtra("AutoReplyText");
     	r = new smsReceiver();
-    	r.GetSmsContent(str);
+    	r.setSms_ContainAutoNotReply(ContainAutoNotReply);
+    	r.setSms_ContainAutoReply(TextContainAutoReply);
+    	r.setSms_number(AutoReplyNum);
+    	r.setSms_reply_content(AutoReplyText);
     	registerReceiver(r,intentFilter);
 
     }
