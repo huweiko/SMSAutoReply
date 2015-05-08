@@ -74,15 +74,17 @@ public class BackService extends Service {
 		if (null == preferences) {
 			preferences = Preference.getSharedPreferences(this);
 		} 
-		String AutoReplyNum = preferences.getString(Constant.C_AutoReplyNum, "");
-		String AutoReplyText = preferences.getString(Constant.C_AutoReplyText, "");
+		String AutoReplyNum = preferences.getString(Constant.C_AutoReplyNum, "10010");
+		String AutoReplyText = preferences.getString(Constant.C_AutoReplyText, "hello");
     	String ContainAutoNotReply = preferences.getString(Constant.C_ContainAutoNotReply, "");
-    	String TextContainAutoReply = preferences.getString(Constant.C_TextContainAutoReply, "");
+    	String TextContainAutoReply = preferences.getString(Constant.C_TextContainAutoReply, "4G");
+    	String EditTextSendNum = preferences.getString(Constant.C_EditTextSendNum, "10010");
     	r = new smsReceiver();
     	r.setSms_ContainAutoNotReply(ContainAutoNotReply);
     	r.setSms_ContainAutoReply(TextContainAutoReply);
     	r.setSms_number(AutoReplyNum);
     	r.setSms_reply_content(AutoReplyText);
+    	r.setSms_EditTextSendNum(EditTextSendNum);
     	registerReceiver(r,intentFilter);
 
     }

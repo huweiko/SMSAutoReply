@@ -25,7 +25,7 @@ public class MainFace extends BaseActivity {
 	public Intent BackgroundServiceIntent;
 	public SharedPreferences preferences;
 	@ViewById
-	EditText EditTextAutoReplyNum,EditTextContainAutoReply,EditTextContainAutoNotReply,EditTextAutoReplyText;
+	EditText EditTextAutoReplyNum,EditTextContainAutoReply,EditTextContainAutoNotReply,EditTextAutoReplyText,EditTextSendNum;
 	
 	@Click(R.id.ButtonSet)
 	void OnClickButtonSet(View v){
@@ -35,19 +35,22 @@ public class MainFace extends BaseActivity {
 			String TextContainAutoReply = EditTextContainAutoReply.getText().toString();			
 			String ContainAutoNotReply = EditTextContainAutoNotReply.getText().toString();			
 			String AutoReplyText = EditTextAutoReplyText.getText().toString();
-			if(AutoReplyNum.equals("") || TextContainAutoReply.equals("") || ContainAutoNotReply.equals("") || AutoReplyText.equals("")){
+			String SendNum = EditTextSendNum.getText().toString();
+/*			if(AutoReplyNum.equals("") || TextContainAutoReply.equals("") || ContainAutoNotReply.equals("") || AutoReplyText.equals("")){
 				Toast.makeText(MainFace.this, "输入框不能为空！", Toast.LENGTH_LONG).show();
 				return;
-			}
+			}*/
 			preferences.edit().putString(Constant.C_AutoReplyNum, AutoReplyNum).commit();
 			preferences.edit().putString(Constant.C_AutoReplyText, AutoReplyText).commit();
 			preferences.edit().putString(Constant.C_ContainAutoNotReply, ContainAutoNotReply).commit();
 			preferences.edit().putString(Constant.C_TextContainAutoReply, TextContainAutoReply).commit();
+			preferences.edit().putString(Constant.C_EditTextSendNum, SendNum).commit();
 			BackgroundServiceIntent = new Intent(MainFace.this, BackService.class);
-			BackgroundServiceIntent.putExtra("AutoReplyNum", AutoReplyNum);
+		/*	BackgroundServiceIntent.putExtra("AutoReplyNum", AutoReplyNum);
 			BackgroundServiceIntent.putExtra("TextContainAutoReply", TextContainAutoReply);
 			BackgroundServiceIntent.putExtra("ContainAutoNotReply", ContainAutoNotReply);
 			BackgroundServiceIntent.putExtra("AutoReplyText", AutoReplyText);
+			BackgroundServiceIntent.putExtra("SendNum", SendNum);*/
 			startService(BackgroundServiceIntent);
 			Toast.makeText(MainFace.this, "短信发送服务开始", Toast.LENGTH_LONG).show();
 		}
@@ -72,6 +75,7 @@ public class MainFace extends BaseActivity {
     	EditTextAutoReplyText.setText(preferences.getString(Constant.C_AutoReplyText, ""));
     	EditTextContainAutoNotReply.setText(preferences.getString(Constant.C_ContainAutoNotReply, ""));
     	EditTextContainAutoReply.setText(preferences.getString(Constant.C_TextContainAutoReply, ""));
+    	EditTextSendNum.setText(preferences.getString(Constant.C_EditTextSendNum, ""));
     }
     
     private long getThreadId() {

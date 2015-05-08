@@ -6,9 +6,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="设置号码（自动回复）:" />
+        android:text="接收方号码:" />
 	<EditText 
 	    android:id="@+id/EditTextAutoReplyNum"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送方号码:" />
+	<EditText 
+	    android:id="@+id/EditTextSendNum"
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -25,31 +33,35 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="短信包含以下内容则不回复:" />
+        android:text="短信包含以下内容则不回复:" 
+        android:visibility="gone"/>
 
 	<EditText 
 	    android:id="@+id/EditTextContainAutoNotReply"
 	    android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="设置回复内容:" />
+        android:text="设置回复内容:" 
+        android:visibility="gone"/>
 
 	<EditText 
 	    android:id="@+id/EditTextAutoReplyText"
 	    android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Power by 长沙县王新刚" 
+        android:text="" 
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
         android:layout_gravity="right"
-        />
+        android:visibility="gone"/>
 	
 	<Button
 	    android:id="@+id/ButtonSet"

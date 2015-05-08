@@ -7,6 +7,7 @@ package com.client.SMS_DAEMON;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,11 +63,7 @@ public final class MainFace_
         return new MainFace_.IntentBuilder_(context);
     }
 
-    public static MainFace_.IntentBuilder_ intent(android.app.Fragment fragment) {
-        return new MainFace_.IntentBuilder_(fragment);
-    }
-
-    public static MainFace_.IntentBuilder_ intent(android.support.v4.app.Fragment supportFragment) {
+    public static MainFace_.IntentBuilder_ intent(Fragment supportFragment) {
         return new MainFace_.IntentBuilder_(supportFragment);
     }
 
@@ -80,25 +77,11 @@ public final class MainFace_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        EditTextContainAutoReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoReply));
+        EditTextSendNum = ((EditText) hasViews.findViewById(id.EditTextSendNum));
+        EditTextContainAutoNotReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoNotReply));
         EditTextAutoReplyNum = ((EditText) hasViews.findViewById(id.EditTextAutoReplyNum));
         EditTextAutoReplyText = ((EditText) hasViews.findViewById(id.EditTextAutoReplyText));
-        EditTextContainAutoNotReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoNotReply));
-        EditTextContainAutoReply = ((EditText) hasViews.findViewById(id.EditTextContainAutoReply));
-        {
-            View view = hasViews.findViewById(id.ButtonClose);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        MainFace_.this.OnClickButtonClose(view);
-                    }
-
-                }
-                );
-            }
-        }
         {
             View view = hasViews.findViewById(id.ButtonSet);
             if (view!= null) {
@@ -114,6 +97,21 @@ public final class MainFace_
                 );
             }
         }
+        {
+            View view = hasViews.findViewById(id.ButtonClose);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MainFace_.this.OnClickButtonClose(view);
+                    }
+
+                }
+                );
+            }
+        }
         Init();
     }
 
@@ -121,19 +119,13 @@ public final class MainFace_
         extends ActivityIntentBuilder<MainFace_.IntentBuilder_>
     {
 
-        private android.app.Fragment fragment_;
-        private android.support.v4.app.Fragment fragmentSupport_;
+        private Fragment fragmentSupport_;
 
         public IntentBuilder_(Context context) {
             super(context, MainFace_.class);
         }
 
-        public IntentBuilder_(android.app.Fragment fragment) {
-            super(fragment.getActivity(), MainFace_.class);
-            fragment_ = fragment;
-        }
-
-        public IntentBuilder_(android.support.v4.app.Fragment fragment) {
+        public IntentBuilder_(Fragment fragment) {
             super(fragment.getActivity(), MainFace_.class);
             fragmentSupport_ = fragment;
         }
@@ -143,11 +135,7 @@ public final class MainFace_
             if (fragmentSupport_!= null) {
                 fragmentSupport_.startActivityForResult(intent, requestCode);
             } else {
-                if (fragment_!= null) {
-                    fragment_.startActivityForResult(intent, requestCode);
-                } else {
-                    super.startForResult(requestCode);
-                }
+                super.startForResult(requestCode);
             }
         }
 

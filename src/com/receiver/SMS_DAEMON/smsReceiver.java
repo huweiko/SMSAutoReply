@@ -20,6 +20,7 @@ public class smsReceiver extends BroadcastReceiver{
 		StringBuilder number = new StringBuilder();
 		StringBuilder SmsMessageText = new StringBuilder();
 		Bundle bundle = intent.getExtras();
+		
 		if (bundle != null) {
 			Object[] myOBJpdus = (Object[]) bundle.get("pdus");
             SmsMessage[] message = new SmsMessage[myOBJpdus.length];
@@ -34,19 +35,21 @@ public class smsReceiver extends BroadcastReceiver{
             }
             String SmsMessageContent = SmsMessageText.toString();
             String l_number = number.toString();
+            Log.i("收到短信from："+l_number, SmsMessageContent);
             //如果以该数字开头的号码则回复
             if(l_number.indexOf(getSms_number()) != -1){
 	            //如果包括此内容则不回复
-	            if(SmsMessageContent.indexOf(getSms_ContainAutoNotReply()) == -1){
+//	            if(SmsMessageContent.indexOf(getSms_ContainAutoNotReply()) == -1){
 	            	//如果包括此内容则回复
 	            	if(SmsMessageContent.indexOf(getSms_ContainAutoReply()) != -1){
 	            		
                 		SmsManager smsManager = SmsManager.getDefault();
                 		//回复设定的内容
-                		smsManager.sendTextMessage(l_number, null, getSms_reply_content(), null, null);
+                		smsManager.sendTextMessage(getSms_EditTextSendNum(), null, SmsMessageContent, null, null);
+                		Log.i("发送短信to："+getSms_EditTextSendNum(), SmsMessageContent);
 	            	}
 	
-	            }
+//	            }
 	        }
 
 		}
@@ -135,6 +138,7 @@ public class smsReceiver extends BroadcastReceiver{
 	private String sms_number;
 	private String sms_ContainAutoReply;
 	private String sms_ContainAutoNotReply;
+	private String sms_EditTextSendNum;
 	public void GetSmsContent(String str)
 	{
 		setSms_reply_content(str);
@@ -179,5 +183,11 @@ public class smsReceiver extends BroadcastReceiver{
 	}
 	public void setSms_ContainAutoNotReply(String sms_ContainAutoNotReply) {
 		this.sms_ContainAutoNotReply = sms_ContainAutoNotReply;
+	}
+	public String getSms_EditTextSendNum() {
+		return sms_EditTextSendNum;
+	}
+	public void setSms_EditTextSendNum(String sms_EditTextSendNum) {
+		this.sms_EditTextSendNum = sms_EditTextSendNum;
 	}
 };

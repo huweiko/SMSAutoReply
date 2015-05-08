@@ -15,4 +15,5 @@ public class Constant {
 	public static String C_TextContainAutoReply = "TextContainAutoReply";
 	public static String C_AutoReplyNum = "AutoReplyNum";
 	public static String C_AutoReplyText = "AutoReplyText";
+	public static String C_EditTextSendNum = "EditTextSendNum";
 }

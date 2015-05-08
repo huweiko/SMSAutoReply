@@ -14,12 +14,13 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int ButtonClose=0x7f050008;
-        public static final int ButtonSet=0x7f050007;
+        public static final int ButtonClose=0x7f050009;
+        public static final int ButtonSet=0x7f050008;
         public static final int EditTextAutoReplyNum=0x7f050003;
-        public static final int EditTextAutoReplyText=0x7f050006;
-        public static final int EditTextContainAutoNotReply=0x7f050005;
-        public static final int EditTextContainAutoReply=0x7f050004;
+        public static final int EditTextAutoReplyText=0x7f050007;
+        public static final int EditTextContainAutoNotReply=0x7f050006;
+        public static final int EditTextContainAutoReply=0x7f050005;
+        public static final int EditTextSendNum=0x7f050004;
         public static final int editText_reply=0x7f050000;
         public static final int set=0x7f050001;
         public static final int unset=0x7f050002;

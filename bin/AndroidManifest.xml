@@ -4,7 +4,7 @@
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="8"
         android:targetSdkVersion="17" /> 
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
@@ -20,6 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name="com.client.SMS_DAEMON.RunOnStartupReceiver"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         <service android:enabled="true" android:name="com.service.SMS_DAEMON.BackService" />
     </application>
 </manifest>
